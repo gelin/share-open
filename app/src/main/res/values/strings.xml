@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ShareOpen</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_open_to_share">Share To...</string>
+    <string name="action_settings">Settings</string>
 </resources>
