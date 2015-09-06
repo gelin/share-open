@@ -16,15 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- TODO: share as link & share as file -->
         <activity
-            android:name=".OpenToShare"
-            android:label="@string/title_activity_open_to_share"
+            android:name=".OpenTextToShare"
+            android:label="@string/share_to"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="*/*"/>
+                <data android:mimeType="text/*"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -32,6 +33,18 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http"/>
                 <data android:scheme="https"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".OpenStreamToShare"
+                android:label="@string/share_to"
+                android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="image/*"/>
+                <data android:mimeType="video/*"/>
             </intent-filter>
         </activity>
 
