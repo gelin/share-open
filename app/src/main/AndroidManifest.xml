@@ -18,8 +18,8 @@
         </activity>
         <!-- TODO: share as link & share as file -->
         <activity
-            android:name=".OpenTextToShare"
-            android:label="@string/share_to"
+            android:name=".ShareAsLinkActivity"
+            android:label="@string/share_link"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -36,15 +36,14 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".OpenStreamToShare"
-                android:label="@string/share_to"
+                android:name=".ShareAsFileActivity"
+                android:label="@string/share_file"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="image/*"/>
-                <data android:mimeType="video/*"/>
+                <data android:mimeType="*/*"/>
             </intent-filter>
         </activity>
 

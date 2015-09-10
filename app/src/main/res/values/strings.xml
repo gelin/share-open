@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Share&amp;Open</string>
-    <string name="share_to">Share To...</string>
+    <string name="share_link">Share as Link...</string>
+    <string name="share_file">Share as File...</string>
 </resources>

@@ -5,15 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 
 
-public class OpenTextToShare : Activity() {
+public class ShareAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val intent = getIntent()
         if (Intent.ACTION_VIEW == intent.getAction() && null != intent.getData()) {
             val newIntent = Intent(Intent.ACTION_SEND)
-            newIntent.setType("text/plain")
-            newIntent.putExtra(Intent.EXTRA_TEXT, intent.getDataString())
+            newIntent.setType(intent.getType() ?: "*/*")
+            newIntent.putExtra(Intent.EXTRA_STREAM, intent.getData())
             startActivity(Intent.createChooser(newIntent, getTitle()))
         }
         finish()
