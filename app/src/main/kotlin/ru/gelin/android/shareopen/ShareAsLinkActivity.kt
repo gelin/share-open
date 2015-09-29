@@ -9,12 +9,11 @@ public class ShareAsLinkActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = getIntent()
-        if (Intent.ACTION_VIEW == intent.getAction() && null != intent.getData()) {
+        if (Intent.ACTION_VIEW == intent.action && null != intent.data) {
             val newIntent = Intent(Intent.ACTION_SEND)
             newIntent.setType("text/plain")
-            newIntent.putExtra(Intent.EXTRA_TEXT, intent.getDataString())
-            startActivity(Intent.createChooser(newIntent, getTitle()))
+            newIntent.putExtra(Intent.EXTRA_TEXT, intent.dataString)
+            startActivity(Intent.createChooser(newIntent, title))
         }
         finish()
     }

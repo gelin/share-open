@@ -9,12 +9,11 @@ public class ShareAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = getIntent()
-        if (Intent.ACTION_VIEW == intent.getAction() && null != intent.getData()) {
+        if (Intent.ACTION_VIEW == intent.action && null != intent.data) {
             val newIntent = Intent(Intent.ACTION_SEND)
-            newIntent.setType(intent.getType() ?: "*/*")
-            newIntent.putExtra(Intent.EXTRA_STREAM, intent.getData())
-            startActivity(Intent.createChooser(newIntent, getTitle()))
+            newIntent.setType(intent.type ?: "*/*")
+            newIntent.putExtra(Intent.EXTRA_STREAM, intent.data)
+            startActivity(Intent.createChooser(newIntent, title))
         }
         finish()
     }
