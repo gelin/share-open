@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- TODO: share as link & share as file -->
         <activity
             android:name=".ShareAsLinkActivity"
             android:label="@string/share_link"
@@ -44,6 +43,28 @@
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:mimeType="*/*"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".OpenFileActivity"
+                android:label="@string/open_file"
+                android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="*/*"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".OpenLinkActivity"
+                android:label="@string/open_link"
+                android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="text/plain"/>
             </intent-filter>
         </activity>
 
