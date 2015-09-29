@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Share&amp;Open</string>
-    <string name="share_link">Share as Link...</string>
-    <string name="share_file">Share as File...</string>
-    <string name="open_file">Open File...</string>
-    <string name="open_link">Open Link...</string>
+    <string name="share_link">Share as Link…</string>
+    <string name="share_file">Share as File…</string>
+    <string name="open_file">Open File…</string>
+    <string name="open_link">Open Link…</string>
+    <string name="no_link_found">No link found in the shared text</string>
 </resources>
