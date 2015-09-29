@@ -4,23 +4,28 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import kotlin.text.Regex
 
-public class OpenLinkActivity : Activity() {
+public class OpenAsLinkActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Intent.ACTION_SEND == intent.action && intent.hasExtra(Intent.EXTRA_TEXT)) {
-            val link = findLinkInText(intent.getStringExtra(Intent.EXTRA_TEXT))
-            if (null == link) {
+        if (Intent.ACTION_SEND == intent.action && intent.hasExtra(Intent.EXTRA_TEXT)) {    //TODO: care of EXTRA_TEXT for "text/plain" type
+            val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+            val link = findLinkInText(text)
+            if (null != link) {
+                val newIntent = Intent(Intent.ACTION_VIEW)
+                newIntent.setDataAndType(link, intent.type ?: "*/*")
+                startActivity(Intent.createChooser(newIntent, title))
+            } else {
+                Log.d(TAG, "No links found in the shared text: " + text)
                 Toast.makeText(this, R.string.no_link_found, Toast.LENGTH_LONG).show()
-                finish()
-                return
             }
-            val newIntent = Intent(Intent.ACTION_VIEW)
-            newIntent.setDataAndType(link, intent.type ?: "*/*")
-            startActivity(Intent.createChooser(newIntent, title))
+        } else {
+            Log.d(TAG, "Cannot open shared link from intent: " + intent)
+            Toast.makeText(this, R.string.cannot_open_link, Toast.LENGTH_LONG).show()
         }
         finish()
     }

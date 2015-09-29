@@ -46,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".OpenFileActivity"
+                android:name=".OpenAsFileActivity"
                 android:label="@string/open_file"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
@@ -57,7 +57,7 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".OpenLinkActivity"
+                android:name=".OpenAsLinkActivity"
                 android:label="@string/open_link"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>

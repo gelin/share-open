@@ -3,6 +3,8 @@ package ru.gelin.android.shareopen
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 
 
 public class ShareAsFileActivity : Activity() {
@@ -14,6 +16,9 @@ public class ShareAsFileActivity : Activity() {
             newIntent.setType(intent.type ?: "*/*")
             newIntent.putExtra(Intent.EXTRA_STREAM, intent.data)
             startActivity(Intent.createChooser(newIntent, title))
+        } else {
+            Log.d(TAG, "Cannot share opened file from intent: " + intent)
+            Toast.makeText(this, R.string.cannot_share_file, Toast.LENGTH_LONG).show()
         }
         finish()
     }

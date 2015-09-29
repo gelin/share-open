@@ -3,6 +3,8 @@ package ru.gelin.android.shareopen
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 
 
 public class ShareAsLinkActivity : Activity() {
@@ -14,6 +16,9 @@ public class ShareAsLinkActivity : Activity() {
             newIntent.setType("text/plain")
             newIntent.putExtra(Intent.EXTRA_TEXT, intent.dataString)
             startActivity(Intent.createChooser(newIntent, title))
+        } else {
+            Log.d(TAG, "Cannot share opened link from intent: " + intent)
+            Toast.makeText(this, R.string.cannot_share_link, Toast.LENGTH_LONG).show()
         }
         finish()
     }
