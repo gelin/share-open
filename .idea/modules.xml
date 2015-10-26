@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/shareopen.iml" filepath="$PROJECT_DIR$/shareopen.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../shareopen-wiki/wiki.iml" filepath="$PROJECT_DIR$/../shareopen-wiki/wiki.iml" />
     </modules>
   </component>
 </project>
