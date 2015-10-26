@@ -8,11 +8,17 @@ import android.util.Log
 import android.widget.Toast
 import kotlin.text.Regex
 
+/**
+ *  Opens the shared link.
+ *  Expects the incoming intent to be ACTION_SEND and has EXTRA_TEXT.
+ *  Searched the link in the shared text.
+ *  Produces ACTION_VIEW intent with DataAndType taken from the input intent, the Data is the found link.
+ */
 public class OpenAsLinkActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Intent.ACTION_SEND == intent.action && intent.hasExtra(Intent.EXTRA_TEXT)) {    //TODO: care of EXTRA_TEXT for "text/plain" type
+        if (Intent.ACTION_SEND == intent.action && intent.hasExtra(Intent.EXTRA_TEXT)) {
             val text = intent.getStringExtra(Intent.EXTRA_TEXT)
             val link = findLinkInText(text)
             if (null != link) {
@@ -34,7 +40,7 @@ public class OpenAsLinkActivity : Activity() {
     val LINK_REGEX = Regex("""((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)""")
 
     fun findLinkInText(text: String): Uri? {
-        val link = LINK_REGEX.match(text)?.value ?: return null
+        val link = LINK_REGEX.find(text)?.value ?: return null
         return Uri.parse(link)
     }
 

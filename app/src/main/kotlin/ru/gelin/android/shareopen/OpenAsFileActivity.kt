@@ -6,6 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 
+/**
+ *  Opens the shared stream.
+ *  Expects the incoming intent to be ACTION_SEND and has EXTRA_STREAM.
+ *  Produces ACTION_VIEW intent with DataAndType taken from the input intent.
+ */
 public class OpenAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

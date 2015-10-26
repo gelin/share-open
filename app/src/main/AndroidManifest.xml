@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ShareAsLinkActivity"
             android:label="@string/share_link"
@@ -24,7 +25,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:mimeType="text/*"/>
+                <data android:mimeType="text/plain"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -45,6 +46,7 @@
                 <data android:mimeType="*/*"/>
             </intent-filter>
         </activity>
+
         <activity
                 android:name=".OpenAsFileActivity"
                 android:label="@string/open_file"
@@ -59,6 +61,17 @@
         <activity
                 android:name=".OpenAsLinkActivity"
                 android:label="@string/open_link"
+                android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".OpenAsTextActivity"
+                android:label="@string/open_file"
                 android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="android.intent.action.SEND"/>

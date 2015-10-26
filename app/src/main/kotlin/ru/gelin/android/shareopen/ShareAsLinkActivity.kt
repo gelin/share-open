@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 
-
+/**
+ *  Shares the opened link.
+ *  Expects the incoming intent to be ACTION_VIEW and having a Data containing a link.
+ *  Produces ACTION_SEND intent with EXTRA_TEXT taken as string representation of Data of the input intent.
+ */
 public class ShareAsLinkActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
