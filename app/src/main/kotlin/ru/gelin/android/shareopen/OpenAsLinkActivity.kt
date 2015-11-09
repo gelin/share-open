@@ -12,7 +12,7 @@ import kotlin.text.Regex
  *  Opens the shared link.
  *  Expects the incoming intent to be ACTION_SEND and has EXTRA_TEXT.
  *  Searched the link in the shared text.
- *  Produces ACTION_VIEW intent with DataAndType taken from the input intent, the Data is the found link.
+ *  Produces ACTION_VIEW intent with Type taken from the input intent, the Data is the found link.
  */
 public class OpenAsLinkActivity : Activity() {
 
