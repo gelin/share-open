@@ -10,31 +10,33 @@ import ru.gelin.kotlin.util.hex.toHexString
 import java.security.MessageDigest
 
 
-private const val URI_BASE = 1
-private const val URI_WITH_ID = 2
-
-private const val CONTENT_AUTHORITY = "ru.gelin.android.shareopen.provider"
-private const val CONTENT_TEXT_PATH = "text"
-
-private val URI_MATCHER = object : UriMatcher(UriMatcher.NO_MATCH) {
-    init {
-        addURI(CONTENT_AUTHORITY, "$CONTENT_TEXT_PATH", URI_BASE)
-        addURI(CONTENT_AUTHORITY, "$CONTENT_TEXT_PATH/*", URI_WITH_ID)
-    }
-}
-
-private const val DB_NAME = "texts"
-private const val TTL = "-2 days"
-
 class TextContentProvider : ContentProvider() {
 
     companion object {
+
+        /** This content provider authority */
+        const val CONTENT_AUTHORITY = "ru.gelin.android.shareopen.provider"
+
+        private const val CONTENT_TEXT_PATH = "text"
 
         /** Base content URI for the text content provider */
         val CONTENT_URI = Uri.parse("content://$CONTENT_AUTHORITY/$CONTENT_TEXT_PATH")
 
         /** Text column name  */
         const val TEXT_COLUMN = "text"
+
+        private const val URI_BASE = 1
+        private const val URI_WITH_ID = 2
+
+        private val URI_MATCHER = object : UriMatcher(UriMatcher.NO_MATCH) {
+            init {
+                addURI(CONTENT_AUTHORITY, "$CONTENT_TEXT_PATH", URI_BASE)
+                addURI(CONTENT_AUTHORITY, "$CONTENT_TEXT_PATH/*", URI_WITH_ID)
+            }
+        }
+
+        private const val DB_NAME = "texts"
+        private const val TTL = "-2 days"
 
     }
 
