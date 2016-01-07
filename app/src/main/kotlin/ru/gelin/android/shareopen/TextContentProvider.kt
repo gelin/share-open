@@ -4,10 +4,12 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
-import android.database.sqlite.SQLiteOpenHelper
 import android.net.Uri
+import android.os.ParcelFileDescriptor
 import ru.gelin.kotlin.util.hex.toHexString
+import java.io.File
 import java.security.MessageDigest
+import java.util.*
 
 
 class TextContentProvider : ContentProvider() {
@@ -35,67 +37,54 @@ class TextContentProvider : ContentProvider() {
             }
         }
 
-        private const val DB_NAME = "texts"
-        private const val TTL = "-2 days"
+        private const val TTL = 2 * 24 * 60 * 60 * 1000L    // 2 days
 
     }
 
-    lateinit private var dbHelper : SQLiteOpenHelper
-
     override fun onCreate(): Boolean {
-        this.dbHelper = TextDbOpenHelper(context, DB_NAME)
-        return false
+        return true
     }
 
     override fun getType(uri: Uri): String {
-        return when (URI_MATCHER.match(uri)) {
-            URI_BASE -> "vnd.android.cursor.dir/vnd.$CONTENT_AUTHORITY.$TEXT_TABLE"
-            URI_WITH_ID -> "vnd.android.cursor.item/vnd.$CONTENT_AUTHORITY.$TEXT_TABLE"
-            else -> throw IllegalArgumentException("Access to $uri is not supported")
-        }
+        throw IllegalArgumentException("Table access to $uri is not supported")
     }
 
     override fun getStreamTypes(uri: Uri?, mimeTypeFilter: String?): Array<out String>? {
         return when (URI_MATCHER.match(uri)) {
-            URI_WITH_ID -> if (mimeTypeFilter?.startsWith("text/") ?: false) arrayOf("text/plain") else null
-            else -> throw IllegalArgumentException("Access to $uri is not supported")
+            URI_WITH_ID -> when {
+                mimeTypeFilter == null -> null
+                mimeTypeFilter.startsWith("text/"), mimeTypeFilter.equals("*/*") -> arrayOf("text/plain")
+                else -> null
+            }
+            else -> throw IllegalArgumentException("Stream access to $uri is not supported")
         }
     }
 
     override fun query(uri: Uri, projection: Array<String>, selection: String,
                        selectionArgs: Array<String>, sortOrder: String): Cursor {
-        when (URI_MATCHER.match(uri)) {
-            URI_WITH_ID -> {
-                val db = this.dbHelper.readableDatabase
-                val id = uri.lastPathSegment
-                return db.query(TEXT_TABLE, arrayOf(TEXT_COLUMN), "$ID_COLUMN = ?", arrayOf(id), null, null, null, null)
-            }
-            else -> throw IllegalArgumentException("Querying of $uri is not supported")
-        }
+        throw IllegalArgumentException("Querying of $uri is not supported")
     }
 
     override fun insert(uri: Uri, values: ContentValues): Uri {
         when (URI_MATCHER.match(uri)) {
             URI_BASE -> {
-                val db = this.dbHelper.writableDatabase
-                db.beginTransaction()
-                try {
-                    db.delete(TEXT_TABLE, "$TIMESTAMP_COLUMN < date('now', '$TTL')", null)
-                    //context.revokeUriPermission() ???
-                    val text = values.getAsString(TEXT_COLUMN)
-                    val id = getId(text)
-                    val insValues = ContentValues()
-                    insValues.put(ID_COLUMN, id)
-                    insValues.put(TIMESTAMP_COLUMN, System.currentTimeMillis() / 1000)
-                    insValues.put(TEXT_COLUMN, text)
-                    db.insert(TEXT_TABLE, null, insValues)
-                    db.setTransactionSuccessful()
-                    return Uri.withAppendedPath(uri, id)
-                } finally {
-                    db.endTransaction()
-                }
+                deleteOldFiles()
+                //context.revokeUriPermission() ???
+                val text = values.getAsString(TEXT_COLUMN)
+                val id = getId(text)
+                createNewFile(id, text)
+                return Uri.withAppendedPath(uri, id)
             }
             else -> throw IllegalArgumentException("Inserting to $uri is not supported")
+        }
+    }
+
+    private fun deleteOldFiles() {
+        val oldLine = System.currentTimeMillis() - TTL
+        for (file in context.cacheDir.listFiles()) {
+            if (file.lastModified() < oldLine) {
+                file.delete()
+            }
         }
     }
 
@@ -106,20 +95,50 @@ class TextContentProvider : ContentProvider() {
         return digest.toHexString()
     }
 
+    private fun getFile(fileName: String): File {
+        return File(context.cacheDir, fileName)
+    }
+
+    private fun createNewFile(fileName: String, content: String) {
+        getFile(fileName).writer().use {
+            it.write(content)
+        }
+    }
+
     override fun delete(uri: Uri, selection: String, selectionArgs: Array<String>): Int {
         when (URI_MATCHER.match(uri)) {
             URI_WITH_ID -> {
-                val db = this.dbHelper.writableDatabase
                 val id = uri.lastPathSegment
-                return db.delete(TEXT_TABLE, "id = ?", arrayOf(id))
+                return if (deleteFile(id)) 1 else 0
             }
             else -> throw IllegalArgumentException("Deleting of $uri is not supported")
         }
     }
 
+    private fun deleteFile(fileName: String): Boolean {
+        return getFile(fileName).delete()
+    }
+
     override fun update(uri: Uri, values: ContentValues, selection: String,
                         selectionArgs: Array<String>): Int {
         throw IllegalArgumentException("Updating of $uri is not supported")
+    }
+
+    override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
+        if (mode.contains('w')) {
+            throw SecurityException("Cannot write $uri. Read-only provider.")
+        }
+        when (URI_MATCHER.match(uri)) {
+            URI_WITH_ID -> {
+                val id = uri.lastPathSegment
+                return openFile(id)
+            }
+            else -> throw IllegalArgumentException("Cannot open $uri")
+        }
+    }
+
+    private fun openFile(fileName: String): ParcelFileDescriptor {
+        return ParcelFileDescriptor.open(getFile(fileName), ParcelFileDescriptor.MODE_READ_ONLY)
     }
 
 }
