@@ -20,10 +20,9 @@ public class ShareAsLinkActivity : Activity() {
         if (null == newIntent) {
             Log.d(TAG, "Cannot share opened link from intent: " + intent)
             Toast.makeText(this, R.string.cannot_share_link, Toast.LENGTH_LONG).show()
-            finish()
+        } else {
+            startActivity(Intent.createChooser(newIntent, title))
         }
-
-        startActivity(Intent.createChooser(newIntent, title))
         finish()
     }
 
