@@ -38,6 +38,9 @@
 
                 <data android:scheme="http" />
                 <data android:scheme="https" />
+                <data android:scheme="ftp" />
+                <data android:scheme="mailto" />
+                <data android:scheme="urn" />
             </intent-filter>
         </activity>
         <activity
