@@ -26,4 +26,15 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(uri, newIntent!!.getParcelableExtra(Intent.EXTRA_STREAM))
     }
 
+    fun testSendTextToViewLink() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        intent.putExtra(Intent.EXTRA_TEXT, "http://example.com")
+        val newIntent = sendTextToViewLink(intent)
+        assertNotNull(newIntent)
+        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
+        assertNull(newIntent?.type)
+        assertEquals(Uri.parse("http://example.com"), newIntent?.data)
+    }
+
 }
