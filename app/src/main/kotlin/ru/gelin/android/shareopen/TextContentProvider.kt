@@ -53,7 +53,7 @@ class TextContentProvider : ContentProvider() {
         return when (URI_MATCHER.match(uri)) {
             URI_WITH_ID -> when {
                 mimeTypeFilter == null -> null
-                mimeTypeFilter.startsWith("text/"), mimeTypeFilter.equals("*/*") -> arrayOf("text/plain")
+                mimeTypeFilter.startsWith("text/") || mimeTypeFilter.equals("*/*") -> arrayOf("text/plain")
                 else -> null
             }
             else -> throw IllegalArgumentException("Stream access to $uri is not supported")

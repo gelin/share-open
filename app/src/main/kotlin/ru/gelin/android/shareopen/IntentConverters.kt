@@ -1,7 +1,10 @@
 package ru.gelin.android.shareopen
 
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import kotlin.text.Regex
 
 /**
@@ -80,4 +83,29 @@ fun sendStreamToViewFile(intent: Intent): Intent? {
     val newIntent = Intent(Intent.ACTION_VIEW)
     newIntent.setDataAndType(intent.getParcelableExtra(Intent.EXTRA_STREAM), intent.type)
     return newIntent
+}
+
+/**
+ *  Converts ACTION_SEND Intent with EXTRA_TEXT into ACTION_VEW Intent.
+ *  The EXTRA_TEXT is saved into temporary ContentProvider,
+ *  then the URI to the text is set as Data of the target Intent.
+ *  The Type of the target Intent is "text/plain".
+ *  @return the converted Intent or null if the conversion is not possible
+ */
+fun sendTextToViewFile(context: Context, intent: Intent): Intent? {
+    if (Intent.ACTION_SEND != intent.action || !intent.hasExtra(Intent.EXTRA_TEXT)) {
+        return null
+    }
+    val text = intent.getStringExtra(Intent.EXTRA_TEXT)
+    try {
+        val values = ContentValues()
+        values.put(TextContentProvider.TEXT_COLUMN, text)
+        val uri = context.contentResolver.insert(TextContentProvider.CONTENT_URI, values)
+        val newIntent = Intent(Intent.ACTION_VIEW)
+        newIntent.setDataAndType(uri, "text/plain")
+        return newIntent
+    } catch (e: Exception) {
+        Log.w("Failed to insert text to provider", e)
+        return null
+    }
 }

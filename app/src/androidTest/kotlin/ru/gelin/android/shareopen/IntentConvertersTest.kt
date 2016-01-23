@@ -49,4 +49,15 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(uri, newIntent?.data)
     }
 
+    fun testSendTextToViewFile() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello, World!")
+        val newIntent = sendTextToViewFile(context, intent)
+        assertNotNull(newIntent)
+        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
+        assertEquals("text/plain", newIntent?.type)
+        assertEquals(Uri.parse("content://ru.gelin.android.shareopen.provider/text/0a0a9f2a6772942557ab5355d76af442f8f65e01"), newIntent?.data)
+    }
+
 }
