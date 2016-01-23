@@ -15,13 +15,13 @@ public class OpenAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (Intent.ACTION_SEND == intent.action && intent.hasExtra(Intent.EXTRA_STREAM)) {
-            val newIntent = Intent(Intent.ACTION_VIEW)
-            newIntent.setDataAndType(intent.getParcelableExtra(Intent.EXTRA_STREAM), intent.type ?: "*/*")
-            startActivity(Intent.createChooser(newIntent, title))
-        } else {
+
+        val newIntent = sendStreamToViewFile(intent)
+        if (null == newIntent) {
             Log.d(TAG, "Cannot open shared file from intent: " + intent)
             Toast.makeText(this, R.string.cannot_open_file, Toast.LENGTH_LONG).show()
+        } else {
+            startActivity(Intent.createChooser(newIntent, title))
         }
         finish()
     }

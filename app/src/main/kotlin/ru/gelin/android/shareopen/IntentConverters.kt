@@ -56,7 +56,7 @@ fun findLinkInText(text: String): Uri? {
  *  Converts ACTION_SEND Intent with EXTRA_TEXT into ACTION_VIEW Intent.
  *  Takes the EXTRA_TEXT, tries to find the first URI in it,
  *  puts the found URI as Data of the target Intent.
- *  @return the converted Intent or null if the convertion is not possible
+ *  @return the converted Intent or null if the conversion is not possible
  */
 fun sendTextToViewLink(intent: Intent): Intent? {
     if (Intent.ACTION_SEND != intent.action || !intent.hasExtra(Intent.EXTRA_TEXT)) {
@@ -65,4 +65,19 @@ fun sendTextToViewLink(intent: Intent): Intent? {
     val text = intent.getStringExtra(Intent.EXTRA_TEXT)
     val link = findLinkInText(text) ?: return null
     return Intent(Intent.ACTION_VIEW, link)
+}
+
+/**
+ *  Converts ACTION_SEND Intent with EXTRA_STREAM into ACTION_VIEW Intent.
+ *  The EXTRA_STREAM is set as the target Intent Data,
+ *  the Type of the original Intent is copied to Type of the target Intent.
+ *  @return the converted Intent or null if the conversion is not possible
+ */
+fun sendStreamToViewFile(intent: Intent): Intent? {
+    if (Intent.ACTION_SEND != intent.action || !intent.hasExtra(Intent.EXTRA_STREAM)) {
+        return null
+    }
+    val newIntent = Intent(Intent.ACTION_VIEW)
+    newIntent.setDataAndType(intent.getParcelableExtra(Intent.EXTRA_STREAM), intent.type)
+    return newIntent
 }
