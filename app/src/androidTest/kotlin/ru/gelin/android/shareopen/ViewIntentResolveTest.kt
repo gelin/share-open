@@ -89,4 +89,22 @@ class ViewIntentResolveTest : AndroidTestCase() {
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
     }
 
+    fun testViewContentZip() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(Uri.parse("content://authority/path/id"), "application/zip")
+        val activities = context.packageManager.queryIntentActivities(intent, 0)
+        assertTrue("missed ShareAsFileActivity",
+                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+    }
+
+    fun testViewContentText() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.setDataAndType(Uri.parse("content://authority/path/id"), "text/plain")
+        val activities = context.packageManager.queryIntentActivities(intent, 0)
+        assertFalse("unnecessary ShareAsLinkActivity",
+                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
+        assertTrue("missed ShareAsFileActivity",
+                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+    }
+
 }
