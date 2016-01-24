@@ -10,7 +10,7 @@ import kotlin.text.Regex
 
 /**
  *  Opens the shared link.
- *  Expects the incoming intent to be ACTION_SEND and has EXTRA_TEXT.
+ *  Expects the incoming intent to be ACTION_SEND and has EXTRA_TEXT or EXTRA_STREAM.
  *  Searched the link in the shared text.
  *  Produces ACTION_VIEW intent with the Data set to the found link.
  */

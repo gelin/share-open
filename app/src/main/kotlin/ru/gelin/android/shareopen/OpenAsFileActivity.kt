@@ -17,10 +17,10 @@ public class OpenAsFileActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         val newIntent: Intent?
-        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            newIntent = sendTextToViewFile(this, intent)
-        } else {
+        if (intent.hasExtra(Intent.EXTRA_STREAM)) {
             newIntent = sendStreamToViewFile(intent)
+        } else {
+            newIntent = sendTextToViewFile(this, intent)
         }
         if (null == newIntent) {
             Log.d(TAG, "Cannot open shared file from intent: " + intent)
