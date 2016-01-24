@@ -19,7 +19,12 @@ public class OpenAsLinkActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val newIntent = sendTextToViewLink(intent)
+        val newIntent: Intent?
+        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            newIntent = sendTextToViewLink(intent)
+        } else {
+            newIntent = sendStreamToViewLink(this, intent)
+        }
         if (null == newIntent) {
             Log.d(TAG, "Cannot open shared link from intent: " + intent)
             Toast.makeText(this, R.string.cannot_open_link, Toast.LENGTH_LONG).show()

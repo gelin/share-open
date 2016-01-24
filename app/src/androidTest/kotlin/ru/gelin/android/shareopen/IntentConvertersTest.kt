@@ -1,5 +1,6 @@
 package ru.gelin.android.shareopen
 
+import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.test.AndroidTestCase
@@ -58,6 +59,20 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertEquals("text/plain", newIntent?.type)
         assertEquals(Uri.parse("content://ru.gelin.android.shareopen.provider/text/0a0a9f2a6772942557ab5355d76af442f8f65e01"), newIntent?.data)
+    }
+
+    fun testSendStreamToViewLink() {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.setType("text/plain")
+        val values = ContentValues()
+        values.put(TextContentProvider.TEXT_COLUMN, "http://example.com")
+        val textUri = context.contentResolver.insert(TextContentProvider.CONTENT_URI, values)
+        intent.putExtra(Intent.EXTRA_STREAM, textUri)
+        val newIntent = sendStreamToViewLink(context, intent)
+        assertNotNull(newIntent)
+        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
+        assertNull(newIntent?.type)
+        assertEquals(Uri.parse("http://example.com"), newIntent?.data)
     }
 
 }

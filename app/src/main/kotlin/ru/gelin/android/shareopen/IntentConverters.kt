@@ -105,7 +105,30 @@ fun sendTextToViewFile(context: Context, intent: Intent): Intent? {
         newIntent.setDataAndType(uri, "text/plain")
         return newIntent
     } catch (e: Exception) {
-        Log.w("Failed to insert text to provider", e)
+        Log.w(TAG, "Failed to insert text to provider", e)
+        return null
+    }
+}
+
+/**
+ *  Converts ACTION_SEND Intent with EXTRA_STREAM into ACTION_VEW Intent.
+ *  The EXTRA_STREAM is considered as a text file and is read,
+ *  then it's tried to find an URI in the text.
+ *  If the URI is found, it's set as Data to the target Intent.
+ *  @return the converted Intent or null if the conversion is not possible
+ */
+fun sendStreamToViewLink(context: Context, intent: Intent): Intent? {
+    if (Intent.ACTION_SEND != intent.action || !intent.hasExtra(Intent.EXTRA_STREAM)) {
+        return null
+    }
+    try {
+        val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+        val stream = context.contentResolver.openInputStream(uri)
+        val text = stream.reader().readText()
+        val link = findLinkInText(text) ?: return null
+        return Intent(Intent.ACTION_VIEW, link)
+    } catch (e: Exception) {
+        Log.w(TAG, "Failed to read the stream", e)
         return null
     }
 }
