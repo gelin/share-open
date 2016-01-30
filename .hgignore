@@ -6,4 +6,5 @@ local.properties
 .DS_Store
 build
 app/build
+app/gradle.properties
 build.sh
