@@ -20,6 +20,7 @@
 
         <activity
             android:name=".ShareAsLinkActivity"
+            android:icon="@mipmap/share_link"
             android:label="@string/share_link"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
@@ -49,6 +50,7 @@
         </activity>
         <activity
             android:name=".ShareAsFileActivity"
+            android:icon="@mipmap/share_file"
             android:label="@string/share_file"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
@@ -73,6 +75,7 @@
 
         <activity
             android:name=".OpenAsFileActivity"
+            android:icon="@mipmap/open_file"
             android:label="@string/open_file"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
@@ -86,6 +89,7 @@
         </activity>
         <activity
             android:name=".OpenAsLinkActivity"
+            android:icon="@mipmap/open_link"
             android:label="@string/open_link"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
