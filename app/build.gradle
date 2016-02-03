@@ -7,10 +7,12 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.triplet.gradle:play-publisher:1.1.4'
     }
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.github.triplet.play'
 
 repositories {
     jcenter()
@@ -25,7 +27,7 @@ android {
         applicationId "ru.gelin.android.shareopen"
         minSdkVersion 9
         targetSdkVersion 21
-        versionCode 3
+        versionCode 4
         versionName "0.1.0"
     }
     compileOptions {
@@ -47,6 +49,10 @@ android {
     }
 }
 
+play {
+    track = 'alpha'
+}
+
 if (project.hasProperty('storeFile')) {
     android.signingConfigs.release.storeFile = file(storeFile)
 }
@@ -58,6 +64,10 @@ if (project.hasProperty('keyAlias')) {
 }
 if (project.hasProperty('keyPassword')) {
     android.signingConfigs.release.keyPassword = keyPassword
+}
+
+if (project.hasProperty('jsonFile')) {
+    play.jsonFile = file(jsonFile)
 }
 
 dependencies {
