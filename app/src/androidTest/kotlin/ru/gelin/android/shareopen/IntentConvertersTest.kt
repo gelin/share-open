@@ -24,7 +24,7 @@ class IntentConvertersTest : AndroidTestCase() {
         assertNotNull(newIntent)
         assertEquals(Intent.ACTION_SEND, newIntent?.action)
         assertEquals("text/html", newIntent?.type)
-        assertEquals(uri, newIntent!!.getParcelableExtra(Intent.EXTRA_STREAM))
+        assertEquals(uri, newIntent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
     }
 
     fun testSendTextToViewLink() {
@@ -73,6 +73,31 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertNull(newIntent?.type)
         assertEquals(Uri.parse("http://example.com"), newIntent?.data)
+    }
+
+    fun testViewToSendTextAndBack() {
+        val intent1 = Intent(Intent.ACTION_VIEW, Uri.parse("http://example.com"))
+        val intent2 = viewToSendText(intent1)
+        assertNotNull(intent2)
+        val intent3 = sendTextToViewLink(intent2!!)
+        assertNotNull(intent3)
+        assertEquals(intent1.action, intent3?.action)
+        assertEquals(intent1.type, intent3?.type)
+        assertEquals(intent1.data, intent3?.data)
+    }
+
+    fun testSendTextToViewLinkAndBack() {
+        val intent1 = Intent(Intent.ACTION_SEND)
+        intent1.setType("text/plain")
+        intent1.putExtra(Intent.EXTRA_TEXT, "http://example.com")
+        val intent2 = sendTextToViewLink(intent1)
+        assertNotNull(intent2)
+        val intent3 = viewToSendText(intent2!!)
+        assertNotNull(intent3)
+        assertEquals(intent1.action, intent3?.action)
+        assertEquals(intent1.type, intent3?.type)
+        assertEquals(intent1.data, intent3?.data)
+        assertEquals(intent1.getStringExtra(Intent.EXTRA_TEXT), intent3?.getStringExtra(Intent.EXTRA_TEXT))
     }
 
 }
