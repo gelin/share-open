@@ -11,7 +11,7 @@ import android.widget.Toast
  *  Expects the incoming intent to be ACTION_VIEW and having a file or content Data.
  *  Produces ACTION_SEND intent with EXTRA_STREAM taken from Data of the input intent.
  */
-public class ShareAsFileActivity : Activity() {
+class ShareAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

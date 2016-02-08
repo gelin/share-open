@@ -11,7 +11,7 @@ import android.widget.Toast
  *  Expects the incoming intent to be ACTION_SEND and has EXTRA_TEXT or EXTRA_STREAM.
  *  Produces ACTION_VIEW intent with DataAndType taken from the input intent.
  */
-public class OpenAsFileActivity : Activity() {
+class OpenAsFileActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
