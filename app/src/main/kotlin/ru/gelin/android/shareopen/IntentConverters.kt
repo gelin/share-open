@@ -23,8 +23,9 @@ fun viewToSendText(intent: Intent): Intent? {
     if (null == intent.data) {
         return null
     }
+    Log.d(TAG, "viewToSendText: ${intent.dataString} text/plain")
     val newIntent = Intent(Intent.ACTION_SEND)
-    newIntent.setType("text/plain")
+    newIntent.type = "text/plain"
     newIntent.putExtra(Intent.EXTRA_TEXT, intent.dataString)
     return newIntent
 }
@@ -41,8 +42,9 @@ fun viewToSendStream(intent: Intent): Intent? {
     if (null == intent.data) {
         return null
     }
+    Log.d(TAG, "viewToSendStream: ${intent.dataString} ${intent.type}")
     val newIntent = Intent(Intent.ACTION_SEND)
-    newIntent.setType(intent.type ?: "*/*")
+    newIntent.type = intent.type
     newIntent.putExtra(Intent.EXTRA_STREAM, intent.data)
     return newIntent
 }
@@ -66,7 +68,11 @@ fun sendTextToViewLink(intent: Intent): Intent? {
         return null
     }
     val text = intent.getStringExtra(Intent.EXTRA_TEXT)
-    val link = findLinkInText(text) ?: return null
+    val link = findLinkInText(text)
+    Log.d(TAG, "sendTextToViewLink: $link")
+    if (null == link) {
+        return null
+    }
     return Intent(Intent.ACTION_VIEW, link)
 }
 
@@ -80,8 +86,10 @@ fun sendStreamToViewFile(intent: Intent): Intent? {
     if (Intent.ACTION_SEND != intent.action || !intent.hasExtra(Intent.EXTRA_STREAM)) {
         return null
     }
+    val stream = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
+    Log.d(TAG, "sendStreamToViewFile: $stream ${intent.type}")
     val newIntent = Intent(Intent.ACTION_VIEW)
-    newIntent.setDataAndType(intent.getParcelableExtra(Intent.EXTRA_STREAM), intent.type)
+    newIntent.setDataAndType(stream, intent.type)
     return newIntent
 }
 
@@ -101,6 +109,7 @@ fun sendTextToViewFile(context: Context, intent: Intent): Intent? {
         val values = ContentValues()
         values.put(TextContentProvider.TEXT_COLUMN, text)
         val uri = context.contentResolver.insert(TextContentProvider.CONTENT_URI, values)
+        Log.d(TAG, "sendTextToViewFile: $uri text/plain")
         val newIntent = Intent(Intent.ACTION_VIEW)
         newIntent.setDataAndType(uri, "text/plain")
         return newIntent
@@ -125,7 +134,11 @@ fun sendStreamToViewLink(context: Context, intent: Intent): Intent? {
         val uri = intent.getParcelableExtra<Uri>(Intent.EXTRA_STREAM)
         val stream = context.contentResolver.openInputStream(uri)
         val text = stream.reader().readText()
-        val link = findLinkInText(text) ?: return null
+        val link = findLinkInText(text)
+        Log.d(TAG, "sendStreamToViewLink: $link")
+        if (null == link) {
+            return null
+        }
         return Intent(Intent.ACTION_VIEW, link)
     } catch (e: Exception) {
         Log.w(TAG, "Failed to read the stream", e)
