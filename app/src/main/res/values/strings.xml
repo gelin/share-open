@@ -4,8 +4,11 @@
     <string name="share_file">Share as File…</string>
     <string name="open_file">Open as File…</string>
     <string name="open_link">Open as Link…</string>
+    <string name="download">Download</string>
     <string name="cannot_open_file">Cannot open the shared file</string>
     <string name="cannot_open_link">Cannot open the shared link</string>
     <string name="cannot_share_file">Cannot share the opened file</string>
     <string name="cannot_share_link">Cannot share the opened link</string>
+    <string name="cannot_download">Cannot download the link</string>
+    <string name="download_started">Download started...</string>
 </resources>
