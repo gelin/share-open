@@ -41,3 +41,4 @@ gen_app_icon share_link
 gen_app_icon share_file
 gen_app_icon open_link
 gen_app_icon open_file
+gen_app_icon download

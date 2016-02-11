@@ -95,6 +95,7 @@
 
         <activity
             android:name=".DownloadActivity"
+            android:icon="@mipmap/download"
             android:label="@string/download"
             android:theme="@android:style/Theme.NoDisplay" >
             <intent-filter>
