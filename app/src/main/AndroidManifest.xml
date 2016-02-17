@@ -120,7 +120,7 @@
             android:name=".TextContentProvider"
             android:authorities="ru.gelin.android.shareopen.provider"
             android:enabled="true"
-            android:exported="true"
+            android:exported="false"
             android:grantUriPermissions="true">
         </provider>
 

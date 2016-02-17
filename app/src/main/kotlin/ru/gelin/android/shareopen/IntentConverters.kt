@@ -1,5 +1,6 @@
 package ru.gelin.android.shareopen
 
+import android.content.ClipData
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -27,6 +28,8 @@ fun viewToSendText(intent: Intent): Intent? {
     val newIntent = Intent(Intent.ACTION_SEND)
     newIntent.type = "text/plain"
     newIntent.putExtra(Intent.EXTRA_TEXT, intent.dataString)
+    newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    newIntent.clipData = ClipData.newRawUri(intent.dataString, intent.data)
     return newIntent
 }
 
@@ -46,6 +49,8 @@ fun viewToSendStream(intent: Intent): Intent? {
     val newIntent = Intent(Intent.ACTION_SEND)
     newIntent.type = intent.type
     newIntent.putExtra(Intent.EXTRA_STREAM, intent.data)
+    newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    newIntent.clipData = ClipData.newRawUri(intent.dataString, intent.data)
     return newIntent
 }
 
@@ -73,7 +78,9 @@ fun sendTextToViewLink(intent: Intent): Intent? {
     if (null == link) {
         return null
     }
-    return Intent(Intent.ACTION_VIEW, link)
+    val newIntent = Intent(Intent.ACTION_VIEW, link)
+    newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+    return newIntent
 }
 
 /**
@@ -90,6 +97,7 @@ fun sendStreamToViewFile(intent: Intent): Intent? {
     Log.d(TAG, "sendStreamToViewFile: $stream ${intent.type}")
     val newIntent = Intent(Intent.ACTION_VIEW)
     newIntent.setDataAndType(stream, intent.type)
+    newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
     return newIntent
 }
 
@@ -112,6 +120,7 @@ fun sendTextToViewFile(context: Context, intent: Intent): Intent? {
         Log.d(TAG, "sendTextToViewFile: $uri text/plain")
         val newIntent = Intent(Intent.ACTION_VIEW)
         newIntent.setDataAndType(uri, "text/plain")
+        newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         return newIntent
     } catch (e: Exception) {
         Log.w(TAG, "Failed to insert text to provider", e)
@@ -139,7 +148,9 @@ fun sendStreamToViewLink(context: Context, intent: Intent): Intent? {
         if (null == link) {
             return null
         }
-        return Intent(Intent.ACTION_VIEW, link)
+        val newIntent = Intent(Intent.ACTION_VIEW, link)
+        newIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        return newIntent
     } catch (e: Exception) {
         Log.w(TAG, "Failed to read the stream", e)
         return null

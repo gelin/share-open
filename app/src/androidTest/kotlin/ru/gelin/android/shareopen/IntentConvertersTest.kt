@@ -14,6 +14,13 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_SEND, newIntent?.action)
         assertEquals("text/plain", newIntent?.type)
         assertEquals("http://example.com", newIntent?.getStringExtra(Intent.EXTRA_TEXT))
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
+        val clipData = newIntent?.clipData
+        assertNotNull(clipData)
+        assertEquals(1, clipData?.itemCount)
+        val clipItem = clipData?.getItemAt(0)
+        assertNotNull(clipItem)
+        assertEquals(Uri.parse("http://example.com"), clipItem?.uri)
     }
 
     fun testViewToSendStream() {
@@ -25,6 +32,13 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_SEND, newIntent?.action)
         assertEquals("text/html", newIntent?.type)
         assertEquals(uri, newIntent?.getParcelableExtra<Uri>(Intent.EXTRA_STREAM))
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
+        val clipData = newIntent?.clipData
+        assertNotNull(clipData)
+        assertEquals(1, clipData?.itemCount)
+        val clipItem = clipData?.getItemAt(0)
+        assertNotNull(clipItem)
+        assertEquals(Uri.parse("http://example.com"), clipItem?.uri)
     }
 
     fun testSendTextToViewLink() {
@@ -36,6 +50,7 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertNull(newIntent?.type)
         assertEquals(Uri.parse("http://example.com"), newIntent?.data)
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
     }
 
     fun testSendStreamToViewFile() {
@@ -48,6 +63,7 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertEquals("text/html", newIntent?.type)
         assertEquals(uri, newIntent?.data)
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
     }
 
     fun testSendTextToViewFile() {
@@ -59,6 +75,7 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertEquals("text/plain", newIntent?.type)
         assertEquals(Uri.parse("content://ru.gelin.android.shareopen.provider/text/0a0a9f2a6772942557ab5355d76af442f8f65e01"), newIntent?.data)
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
     }
 
     fun testSendStreamToViewLink() {
@@ -73,6 +90,7 @@ class IntentConvertersTest : AndroidTestCase() {
         assertEquals(Intent.ACTION_VIEW, newIntent?.action)
         assertNull(newIntent?.type)
         assertEquals(Uri.parse("http://example.com"), newIntent?.data)
+        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
     }
 
     fun testViewToSendTextAndBack() {
