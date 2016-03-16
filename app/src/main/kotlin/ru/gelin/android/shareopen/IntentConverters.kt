@@ -102,7 +102,7 @@ fun sendStreamToViewFile(intent: Intent): Intent? {
 }
 
 /**
- *  Converts ACTION_SEND Intent with EXTRA_TEXT into ACTION_VEW Intent.
+ *  Converts ACTION_SEND Intent with EXTRA_TEXT into ACTION_VIEW Intent.
  *  The EXTRA_TEXT is saved into temporary ContentProvider,
  *  then the URI to the text is set as Data of the target Intent.
  *  The Type of the target Intent is "text/plain".
@@ -129,7 +129,7 @@ fun sendTextToViewFile(context: Context, intent: Intent): Intent? {
 }
 
 /**
- *  Converts ACTION_SEND Intent with EXTRA_STREAM into ACTION_VEW Intent.
+ *  Converts ACTION_SEND Intent with EXTRA_STREAM into ACTION_VIEW Intent.
  *  The EXTRA_STREAM is considered as a text file and is read,
  *  then it's tried to find an URI in the text.
  *  If the URI is found, it's set as Data to the target Intent.

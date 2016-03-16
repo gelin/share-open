@@ -39,6 +39,8 @@
                 <data android:scheme="urn" android:mimeType="*/*"/>
             </intent-filter>
         </activity>
+
+        <!--
         <activity
             android:name=".ShareAsFileActivity"
             android:icon="@mipmap/share_file"
@@ -63,7 +65,8 @@
                 <data android:scheme="ftp" android:mimeType="*/*" />
             </intent-filter>
         </activity>
-
+        -->
+        <!--
         <activity
             android:name=".OpenAsFileActivity"
             android:icon="@mipmap/open_file"
@@ -78,6 +81,7 @@
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
+        -->
         <activity
             android:name=".OpenAsLinkActivity"
             android:icon="@mipmap/open_link"
@@ -92,7 +96,7 @@
                 <data android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
+        <!--
         <activity
             android:name=".DownloadActivity"
             android:icon="@mipmap/download"
@@ -115,7 +119,8 @@
                 <data android:scheme="https" android:mimeType="*/*" />
             </intent-filter>
         </activity>
-
+        -->
+        <!--
         <provider
             android:name=".TextContentProvider"
             android:authorities="ru.gelin.android.shareopen.provider"
@@ -123,7 +128,7 @@
             android:exported="false"
             android:grantUriPermissions="true">
         </provider>
-
+        -->
     </application>
 
 </manifest>
