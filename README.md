@@ -11,3 +11,7 @@ you may want not to send it somewhere,
 but to open it in a browser immediately.
 Just choose "Open as Link..." in the list of applications which are able to receive the link,
 and then choose the app to open it with.
+
+![Screenshot1](misc/screenshots/device-2016-03-16-110637.png)
+![Screenshot2](misc/screenshots/device-2016-03-16-110713.png)
+![Screenshot2](misc/screenshots/device-2016-03-16-110734.png)
