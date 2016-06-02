@@ -1,16 +1,14 @@
 package ru.gelin.android.shareopen
 
-import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.test.AndroidTestCase
 
 class SendIntentResolveTest : AndroidTestCase() {
 
     fun testSendTextLink() {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
+        intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, "http://example.com")
         val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         assertTrue("missed OpenAsLinkActivity",

@@ -1,6 +1,5 @@
 package ru.gelin.android.shareopen
 
-import android.content.ContentValues
 import android.content.Intent
 import android.net.Uri
 import android.test.AndroidTestCase
@@ -43,7 +42,7 @@ class IntentConvertersTest : AndroidTestCase() {
 
     fun testSendTextToViewLink() {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
+        intent.type = "text/plain"
         intent.putExtra(Intent.EXTRA_TEXT, "http://example.com")
         val newIntent = sendTextToViewLink(intent)
         assertNotNull(newIntent)
@@ -55,7 +54,7 @@ class IntentConvertersTest : AndroidTestCase() {
 
     fun testSendStreamToViewFile() {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/html")
+        intent.type = "text/html"
         val uri = Uri.parse("http://example.com")
         intent.putExtra(Intent.EXTRA_STREAM, uri)
         val newIntent = sendStreamToViewFile(intent)
@@ -106,7 +105,7 @@ class IntentConvertersTest : AndroidTestCase() {
 
     fun testSendTextToViewLinkAndBack() {
         val intent1 = Intent(Intent.ACTION_SEND)
-        intent1.setType("text/plain")
+        intent1.type = "text/plain"
         intent1.putExtra(Intent.EXTRA_TEXT, "http://example.com")
         val intent2 = sendTextToViewLink(intent1)
         assertNotNull(intent2)

@@ -42,7 +42,9 @@ class DownloadActivity : Activity() {
                 Log.d(TAG, "Cannot download, no download manager")
                 Toast.makeText(this, R.string.cannot_download, Toast.LENGTH_LONG).show()
             } else {
-                manager.enqueue(DownloadManager.Request(intent.data))
+                val request = DownloadManager.Request(intent.data)
+                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
+                manager.enqueue(request)
                 Toast.makeText(this, R.string.download_started, Toast.LENGTH_LONG).show()
             }
         }
