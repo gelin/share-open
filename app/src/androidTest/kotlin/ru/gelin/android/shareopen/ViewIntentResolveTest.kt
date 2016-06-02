@@ -48,8 +48,8 @@ class ViewIntentResolveTest : AndroidTestCase() {
         val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         assertTrue("missed ShareAsLinkActivity",
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
     }
 
     fun testViewFtpZip() {
@@ -58,27 +58,27 @@ class ViewIntentResolveTest : AndroidTestCase() {
         val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         assertTrue("missed ShareAsLinkActivity",
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
     }
 
-    fun testViewFileZip() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("file:///tmp/test.zip"), "application/zip")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
-    }
+//    fun testViewFileZip() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("file:///tmp/test.zip"), "application/zip")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//    }
 
-    fun testViewFileText() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("file:///tmp/test.txt"), "text/plain")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertFalse("unnecessary ShareAsLinkActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
-    }
+//    fun testViewFileText() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("file:///tmp/test.txt"), "text/plain")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertFalse("unnecessary ShareAsLinkActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//    }
 
     fun testViewHttpText() {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -86,27 +86,27 @@ class ViewIntentResolveTest : AndroidTestCase() {
         val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         assertTrue("missed ShareAsLinkActivity",
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
     }
 
-    fun testViewContentZip() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("content://authority/path/id"), "application/zip")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
-    }
+//    fun testViewContentZip() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("content://authority/path/id"), "application/zip")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//    }
 
-    fun testViewContentText() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("content://authority/path/id"), "text/plain")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertFalse("unnecessary ShareAsLinkActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
-    }
+//    fun testViewContentText() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("content://authority/path/id"), "text/plain")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertFalse("unnecessary ShareAsLinkActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+//    }
 
     fun testViewHttpsPdf() {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -114,9 +114,9 @@ class ViewIntentResolveTest : AndroidTestCase() {
         val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         assertTrue("missed ShareAsLinkActivity",
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsLinkActivity" })
-        assertTrue("missed ShareAsFileActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
-        assertTrue(activities.size > 2)
+//        assertTrue("missed ShareAsFileActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.ShareAsFileActivity" })
+        assertTrue(activities.size >= 1)
     }
 
 }

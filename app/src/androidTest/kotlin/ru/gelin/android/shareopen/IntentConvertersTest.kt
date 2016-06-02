@@ -66,32 +66,32 @@ class IntentConvertersTest : AndroidTestCase() {
         assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
     }
 
-    fun testSendTextToViewFile() {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
-        intent.putExtra(Intent.EXTRA_TEXT, "Hello, World!")
-        val newIntent = sendTextToViewFile(context, intent)
-        assertNotNull(newIntent)
-        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
-        assertEquals("text/plain", newIntent?.type)
-        assertEquals(Uri.parse("content://ru.gelin.android.shareopen.provider/text/0a0a9f2a6772942557ab5355d76af442f8f65e01"), newIntent?.data)
-        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
-    }
+//    fun testSendTextToViewFile() {
+//        val intent = Intent(Intent.ACTION_SEND)
+//        intent.setType("text/plain")
+//        intent.putExtra(Intent.EXTRA_TEXT, "Hello, World!")
+//        val newIntent = sendTextToViewFile(context, intent)
+//        assertNotNull(newIntent)
+//        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
+//        assertEquals("text/plain", newIntent?.type)
+//        assertEquals(Uri.parse("content://ru.gelin.android.shareopen.provider/text/0a0a9f2a6772942557ab5355d76af442f8f65e01"), newIntent?.data)
+//        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
+//    }
 
-    fun testSendStreamToViewLink() {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.setType("text/plain")
-        val values = ContentValues()
-        values.put(TextContentProvider.TEXT_COLUMN, "http://example.com")
-        val textUri = context.contentResolver.insert(TextContentProvider.CONTENT_URI, values)
-        intent.putExtra(Intent.EXTRA_STREAM, textUri)
-        val newIntent = sendStreamToViewLink(context, intent)
-        assertNotNull(newIntent)
-        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
-        assertNull(newIntent?.type)
-        assertEquals(Uri.parse("http://example.com"), newIntent?.data)
-        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
-    }
+//    fun testSendStreamToViewLink() {
+//        val intent = Intent(Intent.ACTION_SEND)
+//        intent.setType("text/plain")
+//        val values = ContentValues()
+//        values.put(TextContentProvider.TEXT_COLUMN, "http://example.com")
+//        val textUri = context.contentResolver.insert(TextContentProvider.CONTENT_URI, values)
+//        intent.putExtra(Intent.EXTRA_STREAM, textUri)
+//        val newIntent = sendStreamToViewLink(context, intent)
+//        assertNotNull(newIntent)
+//        assertEquals(Intent.ACTION_VIEW, newIntent?.action)
+//        assertNull(newIntent?.type)
+//        assertEquals(Uri.parse("http://example.com"), newIntent?.data)
+//        assertTrue(newIntent?.flags?.and(Intent.FLAG_GRANT_READ_URI_PERMISSION) ?: 0 > 0)
+//    }
 
     fun testViewToSendTextAndBack() {
         val intent1 = Intent(Intent.ACTION_VIEW, Uri.parse("http://example.com"))

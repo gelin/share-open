@@ -7,19 +7,19 @@ import android.test.AndroidTestCase
 
 class DownloadIntentResolveTest : AndroidTestCase() {
 
-    fun testViewHttp() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://example.com"))
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed DownloadActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
-    }
+//    fun testViewHttp() {
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://example.com"))
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed DownloadActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
+//    }
 
-    fun testViewHttps() {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"))
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed DownloadActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
-    }
+//    fun testViewHttps() {
+//        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://example.com"))
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed DownloadActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
+//    }
 
     fun testViewFtp() {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("ftp://example.com"))
@@ -42,13 +42,13 @@ class DownloadIntentResolveTest : AndroidTestCase() {
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
     }
 
-    fun testViewHttpHtml() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("http://example.com"), "text/html")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed DownloadActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
-    }
+//    fun testViewHttpHtml() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("http://example.com"), "text/html")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed DownloadActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
+//    }
 
     fun testViewFtpZip() {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -74,13 +74,13 @@ class DownloadIntentResolveTest : AndroidTestCase() {
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
     }
 
-    fun testViewHttpText() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("http://example.com"), "text/plain")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed DownloadActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
-    }
+//    fun testViewHttpText() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("http://example.com"), "text/plain")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed DownloadActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
+//    }
 
     fun testViewContentZip() {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -98,12 +98,12 @@ class DownloadIntentResolveTest : AndroidTestCase() {
                 activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
     }
 
-    fun testViewHttpsPdf() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(Uri.parse("https://example.com/file.pdf"), "application/pdf")
-        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
-        assertTrue("missed DownloadActivity",
-                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
-    }
+//    fun testViewHttpsPdf() {
+//        val intent = Intent(Intent.ACTION_VIEW)
+//        intent.setDataAndType(Uri.parse("https://example.com/file.pdf"), "application/pdf")
+//        val activities = context.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+//        assertTrue("missed DownloadActivity",
+//                activities.any { info -> info.activityInfo.name == "ru.gelin.android.shareopen.DownloadActivity" })
+//    }
 
 }

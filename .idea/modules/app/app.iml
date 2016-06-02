@@ -84,7 +84,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android 5.0" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="kotlin-runtime-1.0.0" level="project" />
-    <orderEntry type="library" exported="" name="kotlin-stdlib-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="kotlin-stdlib-1.0.2" level="project" />
+    <orderEntry type="library" exported="" name="kotlin-runtime-1.0.2" level="project" />
   </component>
 </module>
